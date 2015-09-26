@@ -176,13 +176,13 @@ make construction shorter.
 This constructor accepts named parameters. One of three parameters are
 required.
 
-C<rgb> is a array reference containing three intergers within the range
-of C<0..255>. In order, each interger represents I<red>, I<green>, and
+C<rgb> is a array reference containing three integers within the range
+of C<0..255>. In order, each integer represents I<red>, I<green>, and
 I<blue>.
 
-C<hex> is a hexidecimal representation of an RGB tuple commonly used in
+C<hex> is a hexadecimal representation of an RGB tuple commonly used in
 Cascading Style Sheets. The format begins with an optional hash (C<#>)
-and follows with three groups of hexidecimal numbers represending
+and follows with three groups of hexadecimal numbers representing
 I<red>, I<green>, and I<blue> in that order. A shorthand, 3-digit version
 can be used: C<#123> is equivalent to C<#112233>.
 
@@ -222,13 +222,13 @@ represent I<red>, I<green>, and I<blue>.
 
 =head3 C<hex>
 
-Returns a hexidecimal represention of the tuple conforming to the format
+Returns a hexadecimal representation of the tuple conforming to the format
 used in Cascading Style Sheets.
 
 =head3 C<hex_uc>
 
-Returns the same thing as L</hex>, but any hexidecimal numbers that
-include C<'A'..'F'> will be uppercased.
+Returns the same thing as L</hex>, but any hexadecimal numbers that
+include C<'A'..'F'> will be in upper case.
 
 =head3 C<as_string>
 
