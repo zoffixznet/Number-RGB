@@ -154,9 +154,7 @@ make construction shorter.
 
 =head2 Methods
 
-=over 4
-
-=item C<new()>
+=head3 C<new()>
 
   my $red   = Number::RGB->new(rgb => [255,0,0])
   my $blue  = Number::RGB->new(hex => '#0000FF');
@@ -181,52 +179,48 @@ I<gray>.
 This method throws and exception on error, which should be caught with
 C<eval>.
 
-=item C<r()>
+=head3 C<r()>
 
 Accessor and mutator for the I<red> value.
 
-=item C<g()>
+=head3 C<g()>
 
 Accessor and mutator for the I<green> value.
 
-=item C<b()>
+=head3 C<b()>
 
 Accessor and mutator for the I<blue> value.
 
-=item C<rgb()>
+=head3 C<rgb()>
 
 Returns a list reference containing three elements. In order they
 represent I<red>, I<green>, and I<blue>.
 
-=item C<hex()>
+=head3 C<hex()>
 
 Returns a hexidecimal represention of the tuple conforming to the format
 used in Cascading Style Sheets.
 
-=item C<hex_uc()>
+=head3 C<hex_uc()>
 
 Returns the same thing as C<hex()>, but any hexidecimal numbers that
 include C<'A'..'F'> will be uppercased.
 
-=item C<as_string()>
+=head3 C<as_string()>
 
 Returns a string representation of the tuple.  For example, I<white>
 would be the string C<255,255,255>.
 
-=item C<new_from_guess()>
+=head3 C<new_from_guess()>
 
   my $color = Number::RGB->new_from_guess(input());
 
 This constructor tries to guess the format being used and returns a
 tuple object. If it can't guess, an exception will be thrown.
 
-=back
-
 =head2 Attributes
 
-=over 4
-
-=item C<:RGB()>
+=head3 C<:RGB()>
 
   my $red   :RGB(255,0,0);
   my $blue  :RGB(#0000FF);
@@ -234,8 +228,6 @@ tuple object. If it can't guess, an exception will be thrown.
 
 This attribute is exported to the caller and provides a shorthand wrapper
 around C<new_from_guess()>.
-
-=back
 
 =for pod_spiffy hr
 
