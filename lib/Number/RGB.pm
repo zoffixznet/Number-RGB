@@ -1,9 +1,11 @@
 package Number::RGB;
-# $Id: RGB.pm,v 1.2 2004/03/06 16:17:02 cwest Exp $
-use strict;
 
-use vars qw[$VERSION $CONSTRUCTOR_SPEC];
-$VERSION = (qw$Revision: 1.2 $)[1];
+use strict;
+use warnings;
+
+# VERSION
+
+use vars qw[$CONSTRUCTOR_SPEC];
 
 =head1 NAME
 
@@ -252,14 +254,47 @@ $CONSTRUCTOR_SPEC = {
 
 __END__
 
+=for pod_spiffy hr
+
+=head1 REPOSITORY
+
+=for pod_spiffy start github section
+
+Fork this module on GitHub:
+L<https://github.com/zoffixznet/Number-RGB>
+
+=for pod_spiffy end github section
+
+=head1 BUGS
+
+=for pod_spiffy start bugs section
+
+To report bugs or request features, please use
+L<https://github.com/zoffixznet/Number-RGB/issues>
+
+If you can't access GitHub, you can email your request
+to C<bug-Number-RGB at rt.cpan.org>
+
+=for pod_spiffy end bugs section
+
+=head1 MAINTAINER
+
+This module is currently maintained by:
+
+=for pod_spiffy author ZOFFIX
+
 =head1 AUTHOR
 
-Casey West, <F<casey@geeknest.com>>.
+=for pod_spiffy start author section
 
-=head1 COPYRIGHT
+=for pod_spiffy author CWEST
 
-  Copyright (c) 2004 Casey West.  All rights reserved.
-  This module is free software; you can redistribute it and/or modify it
-  under the same terms as Perl itself.
+=for pod_spiffy end author section
+
+=head1 LICENSE
+
+You can use and distribute this module under the same terms as Perl itself.
+See the C<LICENSE> file included in this distribution for complete
+details.
 
 =cut
