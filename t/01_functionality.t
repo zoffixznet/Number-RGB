@@ -106,7 +106,7 @@ BEGIN { use_ok 'Number::RGB' }
         for ( 1..3 ) {
             for ( 0..255 ) {
                 my $c = Number::RGB->new_from_guess($_);
-                die ":RGB($_) was incorrectly interpreted as $c"
+                die "->new_from_guess($_) was incorrectly interpreted as $c"
                     unless $c eq "$_,$_,$_";
             }
         }
