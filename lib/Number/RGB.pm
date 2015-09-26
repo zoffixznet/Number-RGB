@@ -6,32 +6,6 @@ use warnings;
 # VERSION
 
 use vars qw[$CONSTRUCTOR_SPEC];
-
-=head1 NAME
-
-Number::RGB - Manipulate RGB Tuples
-
-=head1 SYNOPSIS
-
-  use Number::RGB;
-  my $white :RGB(255);
-  my $black :RGB(0);
-
-  my $gray = $black + (($white - $black) / 2);
-
-  my @rgb = @{ $white->rgb };
-  my $hex = $black->hex;
-
-  my $blue   = Number::RGB->new(rgb => [0,0,255]);
-  my $green  = Number::RGB->new(hex => '#00FF00');
-
-  my $red :RGB(255,0,0);
-
-  my $purple = $blue + $green;
-  my $yellow = $red  + $green;
-
-=cut
-
 use Carp;
 use Params::Validate qw[:all];
 use base qw[Class::Accessor::Fast];
@@ -62,43 +36,6 @@ use overload fallback => 1,
 	'^'   => sub { shift->_op_math('^',  @_) },
 	'|'   => sub { shift->_op_math('|',  @_) };
 
-=head1 DESCRIPTION
-
-This module creates RGB tuple objects and overloads their operators to
-make RGB math easier. An attribute is also exported to the caller to
-make construction shorter.
-
-=head2 Methods
-
-=over 4
-
-=item C<new()>
-
-  my $red   = Number::RGB->new(rgb => [255,0,0])
-  my $blue  = Number::RGB->new(hex => '#0000FF');
-  my $black = Number::RGB->new(rgb_number => 0);
-
-This constructor accepts named parameters. One of three parameters are
-required.
-
-C<rgb> is a list reference containing three intergers within the range
-of C<0..255>. In order, each interger represents I<red>, I<green>, and
-I<blue>.
-
-C<hex> is a hexidecimal representation of an RGB tuple commonly used in
-Cascading Style Sheets. The format begins with an optional hash (C<#>)
-and follows with three groups of hexidecimal numbers represending
-I<red>, I<green>, and I<blue> in that order.
-
-C<rgb_number> is a single integer which represents all primary colors.
-This is shorthand to create I<white>, I<black>, and all shades of
-I<gray>.
-
-This method throws and exception on error, which should be caught with
-C<eval>.
-
-=cut
-
 sub new {
 	my $class = shift;
 	my %params = validate( @_,  $CONSTRUCTOR_SPEC );
@@ -119,47 +56,7 @@ sub new {
 	$class->SUPER::new(\%rgb);
 }
 
-=pod
-
-=item C<r()>
-
-Accessor and mutator for the I<red> value.
-
-=item C<g()>
-
-Accessor and mutator for the I<green> value.
-
-=item C<b()>
-
-Accessor and mutator for the I<blue> value.
-
-=cut
-
 __PACKAGE__->mk_accessors( qw[r g b] );
-
-=pod
-
-=item C<rgb()>
-
-Returns a list reference containing three elements. In order they
-represent I<red>, I<green>, and I<blue>.
-
-=item C<hex()>
-
-Returns a hexidecimal represention of the tuple conforming to the format
-used in Cascading Style Sheets.
-
-=item C<hex_uc()>
-
-Returns the same thing as C<hex()>, but any hexidecimal numbers that
-include C<'A'..'F'> will be uppercased.
-
-=item C<as_string()>
-
-Returns a string representation of the tuple.  For example, I<white>
-would be the string C<255,255,255>.
-
-=cut
 
 sub rgb       { [ map $_[0]->$_, qw[r g b] ] }
 sub hex       { '#' . join '', map { substr sprintf('0%x',$_[0]->$_), -2 } qw[r g b] }
@@ -179,19 +76,6 @@ sub _op_math {
 	] );
 }
 
-=pod
-
-=item C<new_from_guess()>
-
-  my $color = Number::RGB->new_from_guess(input());
-
-This constructor tries to guess the format being used and returns a
-tuple object. If it can't guess, an exception will be thrown.
-
-=back
-
-=cut
-
 sub new_from_guess {
 	my ($class, $value) = @_;
 	foreach my $param ( keys %{$CONSTRUCTOR_SPEC} ) {
@@ -200,23 +84,6 @@ sub new_from_guess {
 	}
 	croak "$class->new_from_guess() couldn't guess type for ($value)";
 }
-
-=head2 Attributes
-
-=over 4
-
-=item C<:RGB()>
-
-  my $red   :RGB(255,0,0);
-  my $blue  :RGB(#0000FF);
-  my $white :RGB(0);
-
-This attribute is exported to the caller and provides a shorthand wrapper
-around C<new_from_guess()>.
-
-=back
-
-=cut
 
 sub RGB :ATTR(SCALAR) {
 	my ($var, $data) = @_[2,4];
@@ -253,6 +120,122 @@ $CONSTRUCTOR_SPEC = {
 1;
 
 __END__
+
+=encoding utf8
+
+=head1 NAME
+
+Number::RGB - Manipulate RGB Tuples
+
+=head1 SYNOPSIS
+
+  use Number::RGB;
+  my $white :RGB(255);
+  my $black :RGB(0);
+
+  my $gray = $black + (($white - $black) / 2);
+
+  my @rgb = @{ $white->rgb };
+  my $hex = $black->hex;
+
+  my $blue   = Number::RGB->new(rgb => [0,0,255]);
+  my $green  = Number::RGB->new(hex => '#00FF00');
+
+  my $red :RGB(255,0,0);
+
+  my $purple = $blue + $green;
+  my $yellow = $red  + $green;
+
+=head1 DESCRIPTION
+
+This module creates RGB tuple objects and overloads their operators to
+make RGB math easier. An attribute is also exported to the caller to
+make construction shorter.
+
+=head2 Methods
+
+=over 4
+
+=item C<new()>
+
+  my $red   = Number::RGB->new(rgb => [255,0,0])
+  my $blue  = Number::RGB->new(hex => '#0000FF');
+  my $black = Number::RGB->new(rgb_number => 0);
+
+This constructor accepts named parameters. One of three parameters are
+required.
+
+C<rgb> is a list reference containing three intergers within the range
+of C<0..255>. In order, each interger represents I<red>, I<green>, and
+I<blue>.
+
+C<hex> is a hexidecimal representation of an RGB tuple commonly used in
+Cascading Style Sheets. The format begins with an optional hash (C<#>)
+and follows with three groups of hexidecimal numbers represending
+I<red>, I<green>, and I<blue> in that order.
+
+C<rgb_number> is a single integer which represents all primary colors.
+This is shorthand to create I<white>, I<black>, and all shades of
+I<gray>.
+
+This method throws and exception on error, which should be caught with
+C<eval>.
+
+=item C<r()>
+
+Accessor and mutator for the I<red> value.
+
+=item C<g()>
+
+Accessor and mutator for the I<green> value.
+
+=item C<b()>
+
+Accessor and mutator for the I<blue> value.
+
+=item C<rgb()>
+
+Returns a list reference containing three elements. In order they
+represent I<red>, I<green>, and I<blue>.
+
+=item C<hex()>
+
+Returns a hexidecimal represention of the tuple conforming to the format
+used in Cascading Style Sheets.
+
+=item C<hex_uc()>
+
+Returns the same thing as C<hex()>, but any hexidecimal numbers that
+include C<'A'..'F'> will be uppercased.
+
+=item C<as_string()>
+
+Returns a string representation of the tuple.  For example, I<white>
+would be the string C<255,255,255>.
+
+=item C<new_from_guess()>
+
+  my $color = Number::RGB->new_from_guess(input());
+
+This constructor tries to guess the format being used and returns a
+tuple object. If it can't guess, an exception will be thrown.
+
+=back
+
+=head2 Attributes
+
+=over 4
+
+=item C<:RGB()>
+
+  my $red   :RGB(255,0,0);
+  my $blue  :RGB(#0000FF);
+  my $white :RGB(0);
+
+This attribute is exported to the caller and provides a shorthand wrapper
+around C<new_from_guess()>.
+
+=back
 
 =for pod_spiffy hr
 
