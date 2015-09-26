@@ -7,9 +7,10 @@ use warnings;
 
 use vars qw[$CONSTRUCTOR_SPEC];
 use Carp;
+use Scalar::Util qw[looks_like_number];
 use Params::Validate qw[:all];
 use base qw[Class::Accessor::Fast];
-use Attribute::Handlers;
+use Attribute::Handlers 0.99;
 
 sub import {
 	my $class  = shift;
@@ -78,7 +79,10 @@ sub _op_math {
 
 sub new_from_guess {
 	my ($class, $value) = @_;
+
+    my $is_single_rgb = looks_like_number($value) && $value>=0 && $value<=255;
 	foreach my $param ( keys %{$CONSTRUCTOR_SPEC} ) {
+        next if $param eq 'hex' and $is_single_rgb;
 		my $self = eval { $class->new($param => $value) };
 		return $self if defined $self;
 	}
@@ -87,7 +91,7 @@ sub new_from_guess {
 
 sub RGB :ATTR(SCALAR) {
 	my ($var, $data) = @_[2,4];
-	$$var = __PACKAGE__->new_from_guess($data);
+	$$var = __PACKAGE__->new_from_guess(@$data);
 }
 
 $CONSTRUCTOR_SPEC = {
@@ -184,6 +188,10 @@ This method throws an exception on error.
 
 This constructor tries to guess the format being used and returns a
 tuple object. If it can't guess, an exception will be thrown.
+
+I<Note:> a single number between C<0..255> will I<never> be interpreted as
+a hex shorthand. You'll need to explicitly prepend C<#> character to
+disambiguate and force hex mode.
 
 =head3 C<r>
 
