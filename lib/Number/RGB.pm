@@ -154,7 +154,7 @@ make construction shorter.
 
 =head2 Methods
 
-=head3 C<new()>
+=head3 C<new>
 
   my $red   = Number::RGB->new(rgb => [255,0,0])
   my $blue  = Number::RGB->new(hex => '#0000FF');
@@ -163,7 +163,7 @@ make construction shorter.
 This constructor accepts named parameters. One of three parameters are
 required.
 
-C<rgb> is a list reference containing three intergers within the range
+C<rgb> is a array reference containing three intergers within the range
 of C<0..255>. In order, each interger represents I<red>, I<green>, and
 I<blue>.
 
@@ -172,51 +172,50 @@ Cascading Style Sheets. The format begins with an optional hash (C<#>)
 and follows with three groups of hexidecimal numbers represending
 I<red>, I<green>, and I<blue> in that order.
 
-C<rgb_number> is a single integer which represents all primary colors.
+C<rgb_number> is a single integer to use for each of the three primary colors.
 This is shorthand to create I<white>, I<black>, and all shades of
 I<gray>.
 
-This method throws and exception on error, which should be caught with
-C<eval>.
+This method throws an exception on error.
 
-=head3 C<r()>
+=head3 C<new_from_guess>
+
+  my $color = Number::RGB->new_from_guess( ... );
+
+This constructor tries to guess the format being used and returns a
+tuple object. If it can't guess, an exception will be thrown.
+
+=head3 C<r>
 
 Accessor and mutator for the I<red> value.
 
-=head3 C<g()>
+=head3 C<g>
 
 Accessor and mutator for the I<green> value.
 
-=head3 C<b()>
+=head3 C<b>
 
 Accessor and mutator for the I<blue> value.
 
-=head3 C<rgb()>
+=head3 C<rgb>
 
 Returns a list reference containing three elements. In order they
 represent I<red>, I<green>, and I<blue>.
 
-=head3 C<hex()>
+=head3 C<hex>
 
 Returns a hexidecimal represention of the tuple conforming to the format
 used in Cascading Style Sheets.
 
-=head3 C<hex_uc()>
+=head3 C<hex_uc>
 
-Returns the same thing as C<hex()>, but any hexidecimal numbers that
+Returns the same thing as L</hex>, but any hexidecimal numbers that
 include C<'A'..'F'> will be uppercased.
 
-=head3 C<as_string()>
+=head3 C<as_string>
 
 Returns a string representation of the tuple.  For example, I<white>
 would be the string C<255,255,255>.
-
-=head3 C<new_from_guess()>
-
-  my $color = Number::RGB->new_from_guess(input());
-
-This constructor tries to guess the format being used and returns a
-tuple object. If it can't guess, an exception will be thrown.
 
 =head2 Attributes
 
@@ -227,7 +226,7 @@ tuple object. If it can't guess, an exception will be thrown.
   my $white :RGB(0);
 
 This attribute is exported to the caller and provides a shorthand wrapper
-around C<new_from_guess()>.
+around L</new_from_guess>.
 
 =for pod_spiffy hr
 
