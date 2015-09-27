@@ -4,7 +4,6 @@ use Test::More;
 use Test::Exception;
 use strict;
 use warnings FATAL => 'all';
-use Hash::Util qw/hash_traversal_mask/;
 BEGIN { use_ok 'Number::RGB' }
 
 { # Test ->new
