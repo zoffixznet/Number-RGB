@@ -1,7 +1,7 @@
 Revision history for Perl extension Number-RGB
 
 1.41 2015-09-26
-  - Remove unused hash_traversal_mask from tests (#2)
+  - Remove unused hash_traversal_mask from tests (#2, RT#107357)
 
 1.4 2015-09-26
   - reupload to follow original author's versioning scheme
